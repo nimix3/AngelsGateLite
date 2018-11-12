@@ -159,7 +159,7 @@ class CryptoEx
 	public function HighRandomString($Length=8)
 	{
 		try{
-			$rsa = new \Crypt_RSA();
+			$rsa = new Crypt_RSA();
 			return $rsa->crypt_random_string($Length);
 		}
 		catch(Exception $ex){
