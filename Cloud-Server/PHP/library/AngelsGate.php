@@ -106,7 +106,7 @@ class AngelsGate
 			$this->Request = $input['Request'];
 			$this->Deviceid = $input['Deviceid'];
 			$this->Ssalt = $Crypto->RSADecrypt($input['Ssalt'],$this->Config['Priv8Key']);
-			$this->Data = $Crypto->AdvDecrypt($input['Data'],base64_encode(substr(substr($this->Ssalt,0,16).base64_decode($this->Config['KEY']),0,16)),$this->Config['IV']);
+			$this->Data = $Crypto->AdvDecrypt($input['Data'],base64_encode(substr($this->Ssalt.base64_decode($this->Config['KEY']),0,16)),$this->Config['IV']);
 			if($this->Config['compress'])
 			{
 				$this->Data = gzinflate($this->Data);
@@ -185,7 +185,7 @@ class AngelsGate
 				$datax['Data'] = gzdeflate($datax['Data'],9,ZLIB_ENCODING_DEFLATE);
 			}
 			$datax = json_encode($datax,JSON_UNESCAPED_UNICODE);
-			echo $Crypto->AdvEncrypt($datax,base64_encode(substr(substr($this->Ssalt,0,16).base64_decode($this->Config['KEY']),0,16)),$this->Config['IV']);
+			echo $Crypto->AdvEncrypt($datax,base64_encode(substr($this->Ssalt.base64_decode($this->Config['KEY']),0,16)),$this->Config['IV']);
 			if($ex)
 				exit();
 		}
