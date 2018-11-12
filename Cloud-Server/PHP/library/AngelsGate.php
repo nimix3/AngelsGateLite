@@ -127,7 +127,7 @@ class AngelsGate
 			}
 			if(method_exists($this, 'HashChecker'))
 			{
-				if(! HashChecker(new SQLi($this->Config),$this->Ssalt,$_SERVER['REMOTE_ADDR'],$this->Deviceid,intval($this->Config["TimeLimit"])))
+				if(! $this->HashChecker(new SQLi($this->Config),$this->Ssalt,$_SERVER['REMOTE_ADDR'],$this->Deviceid,intval($this->Config["TimeLimit"])))
 				{
 					$this->Output('ERROR_INPUT_INVALIDHASH',$this->Deviceid,true);
 				}
@@ -226,7 +226,7 @@ class AngelsGate
 		header_remove("Date");
 		header_remove("X-Page-Speed");
 		header_remove("Cache-Control");
-		echo json_encode($data,JSON_UNESCAPED_UNICODE);
+		echo $data;
 		if($ex)
 			exit();
 	}
