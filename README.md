@@ -1,5 +1,6 @@
 # AngelsGate Protocol (Lite Edition)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e99f4c14294b4519b825ab827710d322)](https://www.codacy.com/app/nimix3/AngelsGateLite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nimix3/AngelsGateLite&amp;utm_campaign=Badge_Grade)
 AngelsGate high secure communication protocol for cloud-fog data transmissions (Lite Edition).
 
 ![AngelsGate Logo](https://github.com/nimix3/AngelsGate/blob/master/Documents/en-US/AngelsGateLogo.png "AngelsGate Logo")
