@@ -9,6 +9,7 @@ class AngelsGate
 	
 	public $Request;
 	public $Data;
+	public $rawData;
 	public $Deviceid;
 	public $Ssalt;
 	public $Stime;
@@ -105,19 +106,24 @@ class AngelsGate
 			$input = json_decode($input,true);
 			$this->Request = $input['Request'];
 			$this->Deviceid = $input['Deviceid'];
+			if($this->Request == "TimeSync")
+			{
+			    $this->SyncTime();
+			}
 			$this->Ssalt = $Crypto->RSADecrypt($input['Ssalt'],$this->Config['Priv8Key']);
-			$this->Data = $Crypto->AdvDecrypt($input['Data'],base64_encode(substr($this->Ssalt.base64_decode($this->Config['KEY']),0,16)),$this->Config['IV']);
+			$this->rawData = $Crypto->AdvDecrypt($input['Data'],base64_encode(substr($this->Ssalt.base64_decode($this->Config['KEY']),0,16)),$this->Config['IV']);
 			if($this->Config['compress'])
 			{
-				$this->Data = gzinflate($this->Data);
+				$this->rawData = gzinflate($this->rawData);
 			}
+			$this->Data = $this->DeserializeObject($this->rawData);
 			$this->Stime = $input['Time'];
 			$this->Segment = $input['Segment'];
 			if(!isset($input['Signature'],$input['Segment'],$input['Time'],$input['Request'],$input['Data'],$input['Deviceid'],$input['Ssalt']) or empty($input['Request']) or empty($input['Deviceid']) or empty($input['Ssalt']) or empty($input['Signature']) or empty($input['Time']) or empty($input['Segment']))
 			{
 				$this->Output('ERROR_INPUT_BROKEN',$this->Deviceid,true);
 			}
-			if($this->ComputeHash($this->Ssalt.date("Y").$input['Request'].$this->Data.$input['Deviceid'],$this->Ssalt) != $input['Signature'])
+			if($this->ComputeHash($this->Ssalt.date("Y").$input['Request'].$this->rawData.$input['Deviceid'],$this->Ssalt) != $input['Signature'])
 			{
 				$this->Output('ERROR_INPUT_CRACKED',$this->Deviceid,true);
 			}
@@ -138,6 +144,28 @@ class AngelsGate
 		{
 			$this->RawOutput('ERROR_INPUT_UNKNOW',true);
 		}
+	}
+	
+	private function SerializeObject($Object)
+	{
+		if(is_array($Object) or is_object($Object))
+		{
+			$Object = json_encode($Object);
+		}
+		return base64_encode($Object);
+	}
+	
+	private function DeserializeObject($Object)
+	{
+		@ $Object = base64_decode($Object);
+		if(empty($Object))
+			return null;
+		$DeSe = json_decode($Object,true);
+		if($DeSe === null)
+		{
+			return $Object;
+		}
+		return $DeSe;
 	}
 	
 	public function SyncTime()
