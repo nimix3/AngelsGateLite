@@ -1,0 +1,8 @@
+c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\bin\Debug\AngelsGateLite.exe.config
+c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\obj\Debug\AngelsGateLite.csprojResolveAssemblyReference.cache
+c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\bin\Debug\AngelsGateLite.exe
+c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\bin\Debug\AngelsGateLite.pdb
+c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\bin\Debug\BouncyCastle.Crypto.dll
+c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\bin\Debug\Newtonsoft.Json.dll
+c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\obj\Debug\AngelsGateLite.exe
+c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\obj\Debug\AngelsGateLite.pdb
