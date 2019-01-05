@@ -6,3 +6,6 @@ c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateL
 c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\bin\Debug\Newtonsoft.Json.dll
 c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\obj\Debug\AngelsGateLite.exe
 c:\users\nimix3\documents\visual studio 2015\Projects\AngelsGateLite\AngelsGateLite\obj\Debug\AngelsGateLite.pdb
+D:\Projects\AngelGate\AngelsGateLite\AngelsGateLite\Fog-Client\C#\AngelsGateLite\bin\Debug\AngelsGateLite.exe.config
+D:\Projects\AngelGate\AngelsGateLite\AngelsGateLite\Fog-Client\C#\AngelsGateLite\obj\Debug\AngelsGateLite.exe
+D:\Projects\AngelGate\AngelsGateLite\AngelsGateLite\Fog-Client\C#\AngelsGateLite\obj\Debug\AngelsGateLite.pdb
