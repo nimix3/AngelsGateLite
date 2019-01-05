@@ -83,9 +83,10 @@ Namespace AngelsGateLite
         Public Function SendRequest(Optional ByVal serverIP As String = Nothing) As Dictionary(Of String, Object)
             Try
                 If (String.IsNullOrEmpty(Me.sKEY) _
-                            OrElse (String.IsNullOrEmpty(Me.sIV) _
-                            OrElse (String.IsNullOrEmpty(Me.EndPoint) _
-                            OrElse (String.IsNullOrEmpty(Me.Request) OrElse String.IsNullOrEmpty(Me.PublicKey))))) Then
+                            OrElse String.IsNullOrEmpty(Me.sIV) _
+                            OrElse String.IsNullOrEmpty(Me.EndPoint) _
+                            OrElse String.IsNullOrEmpty(Me.Request) _
+                            OrElse String.IsNullOrEmpty(Me.PublicKey)) Then
                     Throw New Exception
                 End If
 
@@ -116,14 +117,14 @@ Namespace AngelsGateLite
                 End If
                 Encapsulation("Ssalt") = Utils.RSAEncrypt(Me.Ssalt, Me.PublicKey)
 
-                Dim rKEY As String = (Me.Ssalt + Utils.Base64Decode(Me.sKEY))
+                Dim rKEY As String = (Me.Ssalt & Utils.Base64Decode(Me.sKEY))
                 rKEY = Utils.Base64Encode(rKEY.Substring(0, 16))
                 Encapsulation("Data") = Utils.AESEncrypt(Utils.Base64Encode(Json.Serialize(Me.Data)), rKEY, Me.sIV)
 
                 If (Me.Time < 1) Then
                     Encapsulation("Time") = Int32.Parse(Utils.GetTime) + Me.TimeDiff
                 Else
-                    Encapsulation("Time") = (Me.Time) + Me.TimeDiff
+                    Encapsulation("Time") = Me.Time + Me.TimeDiff
                 End If
 
                 If (String.IsNullOrEmpty(Me.Segment)) Then
@@ -132,7 +133,7 @@ Namespace AngelsGateLite
                     Encapsulation("Segment") = Me.Segment
                 End If
 
-                Encapsulation("Signature") = Utils.ComputeHash(Me.Ssalt + Me.DateY + Me.Request + Utils.Base64Encode(Json.Serialize(Me.Data)) + Me.DeviceId, Me.Ssalt)
+                Encapsulation("Signature") = Utils.ComputeHash(Me.Ssalt & Me.DateY & Me.Request & Utils.Base64Encode(Json.Serialize(Me.Data)) & Me.DeviceId, Me.Ssalt)
 
                 Dim postBytes() As Byte = New System.Text.UTF8Encoding().GetBytes(Utils.AESEncrypt(Json.Serialize(Encapsulation), Me.sKEY, Me.sIV))
                 Dim request As System.Net.WebRequest = CType(System.Net.WebRequest.Create(Me.EndPoint), System.Net.WebRequest)
@@ -183,7 +184,7 @@ Namespace AngelsGateLite
                         Return Nothing
                     End If
 
-                    If (Utils.ComputeHash((Me.Ssalt + items("Data").ToString() + Me.DateY + items("Segment").ToString() + Me.DeviceId), items("Token").ToString()) <> items("Signature").ToString()) Then
+                    If (Utils.ComputeHash((Me.Ssalt & items("Data").ToString() & Me.DateY & items("Segment").ToString() & Me.DeviceId), items("Token").ToString()) <> items("Signature").ToString()) Then
                         Return Nothing
                     End If
 
