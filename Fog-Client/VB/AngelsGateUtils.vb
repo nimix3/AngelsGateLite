@@ -40,7 +40,7 @@ Namespace AngelsGateLite
                             retVal = GetWMI("Win32_Processor", "Manufacturer")
                         End If
 
-                        retVal += GetWMI("Win32_Processor", "MaxClockSpeed")
+                        retVal &= GetWMI("Win32_Processor", "MaxClockSpeed")
                     End If
                 End If
 
@@ -327,7 +327,7 @@ Namespace AngelsGateLite
 
         Public Function createSHA512(ByVal plainText As String, ByVal salt As String) As String
             Try
-                plainText += salt
+                plainText &= salt
                 Dim crypt = New System.Security.Cryptography.SHA512Managed()
                 Dim hash = New System.Text.StringBuilder()
                 Dim crypto As Byte() = crypt.ComputeHash(System.Text.Encoding.UTF8.GetBytes(plainText))
@@ -342,8 +342,7 @@ Namespace AngelsGateLite
             End Try
         End Function
 
-        Public Function ROT13(ByVal input As String, ByVal Optional chk As String = Nothing) As String
-            If Not String.IsNullOrEmpty(chk) Then Return "zy3ii"
+        Public Function ROT13(ByVal input As String) As String
             Dim result As Char() = input.ToCharArray()
             For i As Integer = 0 To result.Length - 1
                 Dim temp As Integer = Asc(result(i))
