@@ -1,0 +1,5 @@
+Hello :)
+Please note that C# below 4.6 does not support RSA-OAEPwithSHA-256andMGF1Padding that is default option for AngelsGate & AngelsGateLite !!!
+You can use RSA-OAEPwithSHA-1andMGF1Padding with C# 4.5 and lower version or use thirdparty library for such mode of RSA encryption.
+If you use RSA-OAEPwithSHA-1andMGF1Padding you should also modify Cloud-Server of AngelsGateLite!
+Good Luck.
