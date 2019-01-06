@@ -39,7 +39,9 @@ Please go to [AngelsGate Enterprise](https://github.com/nimix3/AngelsGate) for f
  `Fog-Client:`
  
    Android by [@OmidTaheri](https://github.com/OmidTaheri) -> https://github.com/nimix3/AngelsGateLite/tree/master/Fog-Client/Android
-   C# by [@NIMIX3](https://github.com/nimix3) -> https://github.com/nimix3/AngelsGateLite/tree/master/Fog-Client/C#
+   
+   C# by [@NIMIX3](https://github.com/nimix3) -> https://github.com/nimix3/AngelsGateLite/tree/master/Fog-Client/C%23
+   
    VB.NET by [@NIMIX3](https://github.com/nimix3) -> https://github.com/nimix3/AngelsGateLite/tree/master/Fog-Client/VB
 
 
