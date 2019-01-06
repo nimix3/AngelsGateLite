@@ -40,7 +40,7 @@ Namespace AngelsGateLite
                             retVal = GetWMI("Win32_Processor", "Manufacturer")
                         End If
 
-                        retVal &= GetWMI("Win32_Processor", "MaxClockSpeed")
+                        retVal = retVal & GetWMI("Win32_Processor", "MaxClockSpeed")
                     End If
                 End If
 
@@ -327,7 +327,7 @@ Namespace AngelsGateLite
 
         Public Function createSHA512(ByVal plainText As String, ByVal salt As String) As String
             Try
-                plainText &= salt
+                plainText = plainText & salt
                 Dim crypt = New System.Security.Cryptography.SHA512Managed()
                 Dim hash = New System.Text.StringBuilder()
                 Dim crypto As Byte() = crypt.ComputeHash(System.Text.Encoding.UTF8.GetBytes(plainText))
@@ -481,8 +481,14 @@ Namespace AngelsGateLite
 
         Public Function CreateSHA1(ByVal Input As String) As String
             Try
-                Dim hash = (New SHA1Managed()).ComputeHash(Encoding.UTF8.GetBytes(Input))
-                Return String.Join("", hash.[Select](Function(b) b.ToString("x2")).ToArray())
+                Dim sha1Obj As New Security.Cryptography.SHA1CryptoServiceProvider
+                Dim bytesToHash() As Byte = System.Text.Encoding.UTF8.GetBytes(Input)
+                bytesToHash = sha1Obj.ComputeHash(bytesToHash)
+                Dim strResult As String = ""
+                For Each b As Byte In bytesToHash
+                    strResult += b.ToString("x2")
+                Next
+                Return strResult
             Catch
                 Return Nothing
             End Try
