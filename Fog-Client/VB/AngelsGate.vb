@@ -30,7 +30,7 @@ Namespace AngelsGateLite
 
         Protected Segment As String = Nothing
 
-        Protected DateY As String = "2018"
+        Protected DateY As String = "2019"
 
         Public Sub setDateY(ByVal datey As String)
             Me.DateY = datey
@@ -184,7 +184,7 @@ Namespace AngelsGateLite
                         Return Nothing
                     End If
 
-                    If (Utils.ComputeHash((Me.Ssalt & items("Data").ToString() & Me.DateY & items("Segment").ToString() & Me.DeviceId), items("Token").ToString()) <> items("Signature").ToString()) Then
+                    If (Utils.ComputeHash(Me.Ssalt & items("Data").ToString() & Me.DateY & items("Segment").ToString() & Me.DeviceId, items("Token").ToString()) <> items("Signature").ToString()) Then
                         Return Nothing
                     End If
 
@@ -216,13 +216,11 @@ Namespace AngelsGateLite
                         Else
                             Return Nothing
                         End If
-
                     ElseIf rData.Contains("ERROR_INPUT_") Then
                         Return Nothing
                     Else
                         Return Result
                     End If
-
                 End If
 
             Catch ex As Exception
