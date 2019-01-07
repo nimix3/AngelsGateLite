@@ -465,6 +465,19 @@ namespace AngelsGateLite
                 return Convert.ToBase64String(encrypted);
             }
         }
+        
+        public string RSAEncryptBC(string content, string publicKey)
+        {
+            var bytesToEncrypt = Encoding.UTF8.GetBytes(content);
+            var encryptEngine = new OaepEncoding(new RsaEngine());
+            using (var txtreader = new StringReader(publicKey))
+            {
+                var keyParameter = (AsymmetricKeyParameter)new PemReader(txtreader).ReadObject();
+                encryptEngine.Init(true, keyParameter);
+            }
+            var encrypted = Convert.ToBase64String(encryptEngine.ProcessBlock(bytesToEncrypt, 0, bytesToEncrypt.Length));
+            return encrypted;
+        }
 
         public string GetHostIP(string host)
         {
