@@ -469,7 +469,9 @@ namespace AngelsGateLite
         public string RSAEncryptBC(string content, string publicKey)
         {
             var bytesToEncrypt = Encoding.UTF8.GetBytes(content);
-            var encryptEngine = new OaepEncoding(new RsaEngine());
+            IDigest OaepHash = new Org.BouncyCastle.Crypto.Digests.Sha1Digest();
+            IDigest MGF1Hash = new Org.BouncyCastle.Crypto.Digests.Sha1Digest();
+            var encryptEngine = new OaepEncoding(new RsaEngine(), OaepHash);
             using (var txtreader = new StringReader(publicKey))
             {
                 var keyParameter = (AsymmetricKeyParameter)new PemReader(txtreader).ReadObject();
